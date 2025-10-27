@@ -1,6 +1,6 @@
 [project]
 name = "rdfc_log-processor"
-version = "0.0.1"
+version = "1.0.0"
 description = "Simple Python processors to send an array of messages to a channel and to log an incoming stream to the RDF-Connect logging system."
 authors = [
     { name = "Ieben Smessaert", email = "ieben.smessaert@ugent.be" }
@@ -11,8 +11,8 @@ license = "MIT"
 dependencies = [
     "pytest>=8.4.1",
     "pytest-asyncio>=1.1.0",
-    "rdfc-proto>=0.0.1",
-    "rdfc-runner>=0.0.1",
+    "rdfc-proto>=1.0.0",
+    "rdfc-runner>=1.0.0",
 ]
 
 [project.urls]

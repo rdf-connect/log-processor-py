@@ -31,7 +31,7 @@ class Log(Processor[LogArgs]):
 
     async def init(self) -> None:
         """Initialize the processor."""
-        self.logger.debug("Initializing Log processor with args: {}", self.args)
+        self.logger.debug(msg="Initializing Log processor with args: {}".format(self.args))
 
     async def transform(self) -> None:
         """Listen to the incoming stream, log them, and push them to the outgoing stream."""
