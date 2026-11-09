@@ -3,6 +3,7 @@ import logging
 from unittest.mock import AsyncMock
 
 import rdfc_log_processor.processor as processor
+from rdfc_runner.types import AttrDict
 
 
 class DummyReader:
@@ -74,6 +75,21 @@ async def test_log_transform_without_writer(caplog):
 
     # Should log message even without writer
     assert "foo" in caplog.text
+
+
+@pytest.mark.asyncio
+async def test_log_transform_defaults_to_info_without_level(caplog):
+    # The runner passes the arguments the orchestrator sends as an AttrDict,
+    # without the defaults of LogArgs: a missing level is None
+    messages = ["no level given"]
+    args = AttrDict(reader=DummyReader(messages))
+    proc = processor.Log(args)
+
+    caplog.set_level(logging.INFO)
+
+    await proc.transform()
+
+    assert [r.levelname for r in caplog.records if r.getMessage() == "no level given"] == ["INFO"]
 
 
 # --- Tests for Send Processor ---
