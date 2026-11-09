@@ -41,7 +41,7 @@ class Log(Processor[LogArgs]):
                 print(msg)
             else:
                 # Log the formatted message
-                self.msg_logger.log(msg=msg, level=getLevelName(self.args.level.upper()))
+                self.msg_logger.log(msg=msg, level=getLevelName((self.args.level or "info").upper()))
 
             # Echo the message to the writer
             if self.args.writer:
