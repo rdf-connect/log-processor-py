@@ -14,33 +14,38 @@ rdfc:LogProcessorPy rdfc:pyImplementationOf rdfc:Processor;
     sh:property [
         sh:class rdfc:Reader;
         sh:path rdfc:reader;
-        sh:name "reader";
+        sh:codeIdentifier "reader";
+        sh:name "Input channel";
         sh:minCount 1;
         sh:maxCount 1;
     ], [
         sh:class rdfc:Writer;
         sh:path rdfc:writer;
-        sh:name "writer";
+        sh:codeIdentifier "writer";
+        sh:name "Output channel";
         sh:minCount 0;
         sh:maxCount 1;
     ], [
         sh:datatype xsd:string;
         sh:path rdfc:label;
-        sh:name "label";
+        sh:codeIdentifier "label";
+        sh:name "Label";
         sh:defaultValue "log";
         sh:minCount 0;
         sh:maxCount 1;
     ], [
         sh:datatype xsd:string;
         sh:path rdfc:level;
-        sh:name "level";
+        sh:codeIdentifier "level";
+        sh:name "Log level";
         sh:defaultValue "info";
         sh:minCount 0;
         sh:maxCount 1;
     ], [
         sh:datatype xsd:boolean;
         sh:path rdfc:raw;
-        sh:name "raw";
+        sh:codeIdentifier "raw";
+        sh:name "Raw output";
         sh:defaultValue false;
         sh:minCount 0;
         sh:maxCount 1;
@@ -57,12 +62,14 @@ rdfc:SendProcessorPy rdfc:pyImplementationOf rdfc:Processor;
     sh:targetClass rdfc:SendProcessorPy;
     sh:property [
         sh:path rdfc:writer;
-        sh:name "writer";
+        sh:codeIdentifier "writer";
+        sh:name "Output channel";
         sh:minCount 1;
         sh:maxCount 1;
         sh:class rdfc:Writer;
     ], [
         sh:path rdfc:msg;
-        sh:name "msgs";
+        sh:codeIdentifier "msgs";
+        sh:name "Messages";
         sh:datatype xsd:string;
     ].
