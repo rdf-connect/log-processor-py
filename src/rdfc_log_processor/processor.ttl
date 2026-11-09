@@ -1,65 +1,83 @@
 @prefix rdfc: <https://w3id.org/rdf-connect#>.
+@prefix rdfcp: <https://w3id.org/rdf-connect/processors#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix sh: <http://www.w3.org/ns/shacl#>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
 
-rdfc:LogProcessorPy rdfc:pyImplementationOf rdfc:Processor;
+rdfcp:LogProcessorPy rdfc:pyImplementationOf rdfc:Processor;
     rdfs:label "Python Log Processor";
     rdfs:comment "A simple Python processor to log an incoming stream to the RDF-Connect logging system.";
     rdfc:modulePath "rdfc_log_processor.processor";
     rdfc:class "Log".
 
 [ ] a sh:NodeShape;
-    sh:targetClass rdfc:LogProcessorPy;
+    sh:targetClass rdfcp:LogProcessorPy;
     sh:property [
         sh:class rdfc:Reader;
-        sh:path rdfc:reader;
-        sh:name "reader";
+        sh:path rdfcp:input;
+        sh:codeIdentifier "reader";
+        sh:name "Input channel";
+        sh:description "Input channel with the messages to log.";
         sh:minCount 1;
         sh:maxCount 1;
     ], [
         sh:class rdfc:Writer;
-        sh:path rdfc:writer;
-        sh:name "writer";
+        sh:path rdfcp:output;
+        sh:codeIdentifier "writer";
+        sh:name "Output channel";
+        sh:description "Optional output channel to which every message is forwarded after it is logged.";
         sh:minCount 0;
         sh:maxCount 1;
     ], [
         sh:datatype xsd:string;
-        sh:path rdfc:label;
-        sh:name "label";
+        sh:path rdfcp:label;
+        sh:codeIdentifier "label";
+        sh:name "Label";
+        sh:description "Name of the logger the messages are logged with; default is log.";
+        sh:defaultValue "log";
         sh:minCount 0;
         sh:maxCount 1;
     ], [
         sh:datatype xsd:string;
-        sh:path rdfc:level;
-        sh:name "level";
+        sh:path rdfcp:level;
+        sh:codeIdentifier "level";
+        sh:name "Log level";
+        sh:description "Level the messages are logged at, such as debug, info, warning, error or critical; default is info.";
+        sh:defaultValue "info";
         sh:minCount 0;
         sh:maxCount 1;
     ], [
         sh:datatype xsd:boolean;
-        sh:path rdfc:raw;
-        sh:name "raw";
+        sh:path rdfcp:raw;
+        sh:codeIdentifier "raw";
+        sh:name "Raw output";
+        sh:description "Print the messages to stdout as they are, instead of logging them to the RDF-Connect logging system; default is false.";
+        sh:defaultValue false;
         sh:minCount 0;
         sh:maxCount 1;
     ].
 
 
-rdfc:SendProcessorPy rdfc:pyImplementationOf rdfc:Processor;
+rdfcp:SendProcessorPy rdfc:pyImplementationOf rdfc:Processor;
     rdfs:label "Python Send Processor";
     rdfs:comment "A simple Python processor to send an array of messages to a channel.";
     rdfc:modulePath "rdfc_log_processor.processor";
     rdfc:class "Send".
 
 [ ] a sh:NodeShape;
-    sh:targetClass rdfc:SendProcessorPy;
+    sh:targetClass rdfcp:SendProcessorPy;
     sh:property [
-        sh:path rdfc:writer;
-        sh:name "writer";
+        sh:path rdfcp:output;
+        sh:codeIdentifier "writer";
+        sh:name "Output channel";
+        sh:description "Output channel to which the messages are sent; it is closed after the last message.";
         sh:minCount 1;
         sh:maxCount 1;
         sh:class rdfc:Writer;
     ], [
-        sh:path rdfc:msg;
-        sh:name "msgs";
+        sh:path rdfcp:msg;
+        sh:codeIdentifier "msgs";
+        sh:name "Messages";
+        sh:description "Message to send. Repeat for several messages.";
         sh:datatype xsd:string;
     ].

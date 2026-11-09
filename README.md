@@ -4,7 +4,7 @@ Simple Python processors to send an array of messages to a channel and to log an
 
 ## Usage
 
-To use the Python `rdfc:LogProcessorPy` or `rdfc:SendProcessorPy` in your RDF-Connect pipeline, you need to have a pipeline configuration that includes the [rdfc:PyRunner](https://github.com/rdf-connect/py-runner) (check out their documentation to find out how to install and configure it).
+To use the Python `rdfcp:LogProcessorPy` or `rdfcp:SendProcessorPy` in your RDF-Connect pipeline, you need to have a pipeline configuration that includes the [rdfc:PyRunner](https://github.com/rdf-connect/py-runner) (check out their documentation to find out how to install and configure it).
 
 You can install the Python runner package using the following command:
 
@@ -16,6 +16,7 @@ Next, you can add the processors to your pipeline configuration as follows:
 
 ```turtle
 @prefix rdfc: <https://w3id.org/rdf-connect#>.
+@prefix rdfcp: <https://w3id.org/rdf-connect/processors#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 
 # Import the processor
@@ -28,29 +29,29 @@ Next, you can add the processors to your pipeline configuration as follows:
 # Add the `rdfc:processor <send>, <log>` statement under the `rdfc:consistsOf` statement of the `rdfc:PyRunner`
 
 ### Define and configure the processors
-<send> a rdfc:SendProcessorPy;
-       rdfc:writer <channel>;
-       rdfc:msg "Hello, World!", "Good afternoon, World!",
+<send> a rdfcp:SendProcessorPy;
+       rdfcp:output <channel>;
+       rdfcp:msg "Hello, World!", "Good afternoon, World!",
                 "Good evening, World!", "Good night, World!".
 
-<log> a rdfc:LogProcessorPy;
-      rdfc:reader <channel>;
-      rdfc:level "info";
-      rdfc:label "test".
+<log> a rdfcp:LogProcessorPy;
+      rdfcp:input <channel>;
+      rdfcp:level "info";
+      rdfcp:label "test".
 ```
 
 ### Configuration
 
-Parameters of `rdfc:SendProcessorPy`:
-- `rdfc:writer`: The channel to which the processor will write messages.
-- `rdfc:msg`: The messages to be sent by the processor.
+Parameters of `rdfcp:SendProcessorPy`:
+- `rdfcp:output`: The channel to which the processor will write messages.
+- `rdfcp:msg`: The messages to be sent by the processor.
 
-Parameters of `rdfc:LogProcessorPy`:
-- `rdfc:reader`: The channel from which the processor will read messages.
-- `rdfc:writer`: The channel to which the processor will write log messages (optional).
-- `rdfc:level`: The log level to use (e.g., "debug", "info", "warning", "error", "critical"). Defaults to "info".
-- `rdfc:label`: A label for the log messages, which can be used to filter or categorize logs. Defaults to "log".
-- `rdfc:raw`: If set to `true`, the processor will log raw messages to stdout without any formatting instead of to the RDF-Connect logging system. Defaults to `false`.
+Parameters of `rdfcp:LogProcessorPy`:
+- `rdfcp:input`: The channel from which the processor will read messages.
+- `rdfcp:output`: The channel to which the processor will write log messages (optional).
+- `rdfcp:level`: The log level to use (e.g., "debug", "info", "warning", "error", "critical"). Defaults to "info".
+- `rdfcp:label`: A label for the log messages, which can be used to filter or categorize logs. Defaults to "log".
+- `rdfcp:raw`: If set to `true`, the processor will log raw messages to stdout without any formatting instead of to the RDF-Connect logging system. Defaults to `false`.
 
 
 ## Development
